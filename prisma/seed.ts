@@ -2,7 +2,10 @@ import "dotenv/config";
 import bcrypt from "bcryptjs";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../lib/generated/prisma/client";
-import { slugify } from "../lib/utils";
+import {
+  categoriasPlaceholder,
+  productosPlaceholder,
+} from "../lib/menu/placeholder-data";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -21,39 +24,51 @@ async function main() {
     },
   });
 
-  const categorias = [
-    { nombre: "Entradas", slug: "entradas", orden: 1 },
-    { nombre: "Fuertes", slug: "fuertes", orden: 2 },
-    { nombre: "Cócteles", slug: "cocteles", orden: 3 },
-    { nombre: "Postres", slug: "postres", orden: 4 },
-  ];
-
-  for (const categoria of categorias) {
+  // Carta real (ver lib/menu/placeholder-data.ts para la fuente y notas
+  // sobre qué fotos son coincidencias confirmadas vs. mejor aproximación).
+  for (const [index, categoria] of categoriasPlaceholder.entries()) {
     await prisma.categoria.upsert({
       where: { slug: categoria.slug },
-      update: {},
-      create: categoria,
+      update: { nombre: categoria.nombre, orden: index },
+      create: { nombre: categoria.nombre, slug: categoria.slug, orden: index },
     });
   }
 
-  const entradas = await prisma.categoria.findUniqueOrThrow({
-    where: { slug: "entradas" },
-  });
+  const categoriasDb = await prisma.categoria.findMany();
+  const categoriaIdPorSlug = new Map(categoriasDb.map((c) => [c.slug, c.id]));
 
-  await prisma.producto.upsert({
-    where: { slug: slugify("Ceviche caribeño") },
-    update: {},
-    create: {
-      nombre: "Ceviche caribeño",
-      slug: slugify("Ceviche caribeño"),
-      descripcion:
-        "Pescado blanco, leche de tigre de coco, camote y chicharrón de plátano.",
-      precio: 38000,
-      categoriaId: entradas.id,
-    },
-  });
+  for (const producto of productosPlaceholder) {
+    const categoriaId = categoriaIdPorSlug.get(producto.categoriaSlug);
+    if (!categoriaId) {
+      throw new Error(`Categoría no encontrada: ${producto.categoriaSlug}`);
+    }
+
+    await prisma.producto.upsert({
+      where: { slug: producto.slug },
+      update: {
+        nombre: producto.nombre,
+        descripcion: producto.descripcion || "",
+        precio: producto.precio,
+        imagenUrl: producto.imagenUrl,
+        disponible: producto.disponible,
+        categoriaId,
+      },
+      create: {
+        nombre: producto.nombre,
+        slug: producto.slug,
+        descripcion: producto.descripcion || "",
+        precio: producto.precio,
+        imagenUrl: producto.imagenUrl,
+        disponible: producto.disponible,
+        categoriaId,
+      },
+    });
+  }
 
   console.log(`Usuario admin listo: ${admin.email} / ${adminPassword}`);
+  console.log(
+    `Carta cargada: ${categoriasDb.length} categorías, ${productosPlaceholder.length} productos.`,
+  );
 }
 
 main()

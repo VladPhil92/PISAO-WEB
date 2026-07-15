@@ -10,7 +10,7 @@ export interface MenuCardProduct {
   id: string;
   nombre: string;
   slug: string;
-  descripcion: string;
+  descripcion?: string;
   precio: number;
   imagenUrl?: string | null;
   disponible: boolean;
@@ -45,9 +45,11 @@ export function MenuCard({ product }: { product: MenuCardProduct }) {
             {product.nombre}
           </h3>
         </Link>
-        <p className="text-pisao-cream-muted mt-1 line-clamp-2 flex-1 text-sm">
-          {product.descripcion}
-        </p>
+        {product.descripcion && (
+          <p className="text-pisao-cream-muted mt-1 line-clamp-2 flex-1 text-sm">
+            {product.descripcion}
+          </p>
+        )}
 
         <div className="mt-3 flex items-center justify-between">
           <span className="text-pisao-gold text-sm font-semibold">

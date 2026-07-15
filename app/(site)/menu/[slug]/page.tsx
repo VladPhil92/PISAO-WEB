@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { productosPlaceholder } from "@/lib/menu/placeholder-data";
@@ -28,12 +29,28 @@ export default async function ProductoPage({ params }: Props) {
 
   return (
     <Container className="grid gap-10 py-16 lg:grid-cols-2">
-      <div className="bg-pisao-carbon-soft aspect-square rounded-xl" />
+      <div className="bg-pisao-carbon-soft relative aspect-square overflow-hidden rounded-xl">
+        {producto.imagenUrl ? (
+          <Image
+            src={producto.imagenUrl}
+            alt={producto.nombre}
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover"
+          />
+        ) : (
+          <div className="text-pisao-cream-muted flex h-full items-center justify-center text-sm">
+            Sin imagen
+          </div>
+        )}
+      </div>
       <div>
         <h1 className="font-display text-pisao-cream text-4xl">
           {producto.nombre}
         </h1>
-        <p className="text-pisao-cream-muted mt-4">{producto.descripcion}</p>
+        {producto.descripcion && (
+          <p className="text-pisao-cream-muted mt-4">{producto.descripcion}</p>
+        )}
         <p className="text-pisao-gold mt-6 text-2xl font-semibold">
           {formatCurrency(producto.precio)}
         </p>
