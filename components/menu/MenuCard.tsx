@@ -23,13 +23,14 @@ export function MenuCard({ product }: { product: MenuCardProduct }) {
     <div className="group border-pisao-gold/10 bg-pisao-carbon-soft flex flex-col overflow-hidden rounded-xl border">
       <Link
         href={`/menu/${product.slug}`}
-        className="bg-pisao-noche relative block aspect-4/3 overflow-hidden"
+        className="bg-pisao-noche relative block aspect-square overflow-hidden"
       >
         {product.imagenUrl ? (
           <Image
             src={product.imagenUrl}
             alt={product.nombre}
             fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (

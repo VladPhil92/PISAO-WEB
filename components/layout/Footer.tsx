@@ -13,8 +13,8 @@ export function Footer() {
           <Image
             src="/brand/pisao-logo.png"
             alt={siteConfig.name}
-            width={1115}
-            height={1014}
+            width={220}
+            height={200}
             className="h-24 w-auto"
           />
           <p className="text-pisao-cream-muted mt-3 text-sm">

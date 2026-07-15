@@ -1,7 +1,15 @@
 import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
+/**
+ * Combina clases y resuelve conflictos de Tailwind (ej. un componente
+ * que ya trae `inline-flex` en su base y un consumidor que necesita
+ * pisarlo con `hidden sm:inline-flex`). Sin twMerge, ambas clases
+ * conviven en el HTML y gana la que Tailwind generó después en el CSS
+ * final — no necesariamente la que aparece última en el className.
+ */
 export function cn(...inputs: ClassValue[]) {
-  return clsx(inputs);
+  return twMerge(clsx(inputs));
 }
 
 export function formatCurrency(amount: number | string, currency = "COP") {

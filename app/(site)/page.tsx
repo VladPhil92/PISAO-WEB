@@ -6,14 +6,14 @@ import { siteConfig } from "@/lib/site-config";
 export default function HomePage() {
   return (
     <>
-      <section className="bg-pisao-noche relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden">
+      <section className="bg-pisao-noche relative flex min-h-[70svh] items-center overflow-hidden sm:min-h-[80svh] lg:min-h-[calc(100svh-4rem)]">
         <Image
           src="/gallery/patacon-especial.jpg"
           alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-center"
         />
         <div className="via-pisao-carbon/70 to-pisao-carbon absolute inset-0 bg-linear-to-b from-black/40" />
 

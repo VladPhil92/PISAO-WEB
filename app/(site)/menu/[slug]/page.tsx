@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { productosPlaceholder } from "@/lib/menu/placeholder-data";
+import { getPhotoAspectRatio } from "@/lib/gallery/photos";
 import { formatCurrency } from "@/lib/utils";
 import { AddToCartButton } from "./AddToCartButton";
 
@@ -29,7 +30,10 @@ export default async function ProductoPage({ params }: Props) {
 
   return (
     <Container className="grid gap-10 py-16 lg:grid-cols-2">
-      <div className="bg-pisao-carbon-soft relative aspect-square overflow-hidden rounded-xl">
+      <div
+        className="bg-pisao-carbon-soft relative overflow-hidden rounded-xl"
+        style={{ aspectRatio: getPhotoAspectRatio(producto.imagenUrl) }}
+      >
         {producto.imagenUrl ? (
           <Image
             src={producto.imagenUrl}
