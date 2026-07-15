@@ -4,6 +4,16 @@ import type { MenuCardProduct } from "@/components/menu/MenuCard";
  * Datos de ejemplo únicamente para desarrollo local sin base de datos
  * conectada. En producción, /app/menu debe leer de Prisma
  * (`prisma.categoria.findMany({ include: { productos: true } })`).
+ *
+ * Estos nombres/precios son ficticios y NO deben usarse como el menú
+ * real. Cuando llegue la carta real (nombres, categorías, precios),
+ * reemplazar este archivo por completo o cargar los datos vía seed.
+ *
+ * Ya hay fotografía real de producto lista para usar en `imagenUrl`
+ * (ej. `/gallery/patacon-especial.jpg`) — ver `lib/gallery/photos.ts`
+ * para el listado completo de slugs disponibles (patacones,
+ * hamburguesas, etc.). Solo falta mapear cada foto a su plato real
+ * una vez se defina la carta oficial.
  */
 export const categoriasPlaceholder = [
   { id: "cat-entradas", nombre: "Entradas", slug: "entradas" },

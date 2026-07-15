@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/lib/site-config";
@@ -6,8 +7,15 @@ export default function HomePage() {
   return (
     <>
       <section className="bg-pisao-noche relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden">
-        {/* TODO: reemplazar por fotografía hero de alto contraste del manual de marca */}
-        <div className="via-pisao-carbon/60 to-pisao-carbon absolute inset-0 bg-linear-to-b from-black/20" />
+        <Image
+          src="/gallery/patacon-especial.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="via-pisao-carbon/70 to-pisao-carbon absolute inset-0 bg-linear-to-b from-black/40" />
 
         <Container className="relative py-24 text-center sm:text-left">
           <p className="text-pisao-gold text-xs font-semibold tracking-[0.3em] uppercase">
