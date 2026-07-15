@@ -24,11 +24,13 @@ export function MenuBrowser({
 
   return (
     <div>
-      <CategoryFilter
-        categories={categories}
-        active={active}
-        onChange={setActive}
-      />
+      <div className="bg-pisao-carbon/95 supports-backdrop-blur:bg-pisao-carbon/80 sticky top-16 z-30 -mx-4 px-4 py-3 backdrop-blur sm:mx-0 sm:px-0">
+        <CategoryFilter
+          categories={categories}
+          active={active}
+          onChange={setActive}
+        />
+      </div>
 
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((product) => (

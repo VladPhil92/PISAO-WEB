@@ -6,7 +6,7 @@ import { siteConfig, whatsappLink } from "@/lib/site-config";
 export default function HomePage() {
   return (
     <>
-      <section className="bg-pisao-noche relative flex min-h-[70svh] items-center overflow-hidden sm:min-h-[80svh] lg:min-h-[calc(100svh-4rem)]">
+      <section className="bg-pisao-noche relative flex min-h-[58svh] items-center overflow-hidden sm:min-h-[80svh] lg:min-h-[calc(100svh-4rem)]">
         <Image
           src="/gallery/patacon-especial.jpg"
           alt=""
