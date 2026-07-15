@@ -1,26 +1,27 @@
 @import "tailwindcss";
 
 /**
- * Paleta y tokens de marca — PLACEHOLDER.
- * Reemplazar estos valores exactos cuando llegue el manual de identidad
- * de PISÁO (colores oficiales + logo SVG). No inventar una paleta nueva
- * a partir de ese momento: estos son solo aproximaciones de trabajo.
+ * Paleta y tokens de marca — valores oficiales del manual de identidad
+ * de PISÁO (ver docs/brand/BRAND.md). No modificar estos hex sin
+ * actualizar también el manual de referencia.
  */
 :root {
-  /* Fondos oscuros (carbón / azul noche) */
-  --color-pisao-carbon: #14120f;
-  --color-pisao-carbon-soft: #1c1915;
-  --color-pisao-noche: #10161f;
+  /* Negro Carbón / Madera Tostada */
+  --color-pisao-carbon: #111111;
+  --color-pisao-carbon-soft: #3a2a1a;
+  --color-pisao-noche: #1c1c1c;
 
-  /* Dorado / tierra (acentos cálidos) */
-  --color-pisao-gold: #c6a15b;
-  --color-pisao-gold-light: #e4c989;
-  --color-pisao-gold-dark: #8f7238;
-  --color-pisao-terracota: #a85c32;
+  /* Dorado Atardecer */
+  --color-pisao-gold: #c79a3a;
+  --color-pisao-gold-light: #dfc17e;
+  --color-pisao-gold-dark: #9c7a2c;
 
-  /* Texto sobre fondo oscuro */
-  --color-pisao-cream: #f5efe4;
-  --color-pisao-cream-muted: #cabfa9;
+  /* Verde Plátano */
+  --color-pisao-green: #5a6f2e;
+
+  /* Arena Caribe */
+  --color-pisao-cream: #e8dfc5;
+  --color-pisao-cream-muted: #b6ac93;
 
   --background: var(--color-pisao-carbon);
   --foreground: var(--color-pisao-cream);
@@ -36,12 +37,12 @@
   --color-pisao-gold: var(--color-pisao-gold);
   --color-pisao-gold-light: var(--color-pisao-gold-light);
   --color-pisao-gold-dark: var(--color-pisao-gold-dark);
-  --color-pisao-terracota: var(--color-pisao-terracota);
+  --color-pisao-green: var(--color-pisao-green);
   --color-pisao-cream: var(--color-pisao-cream);
   --color-pisao-cream-muted: var(--color-pisao-cream-muted);
 
   --font-display: var(--font-playfair);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-montserrat);
 }
 
 body {

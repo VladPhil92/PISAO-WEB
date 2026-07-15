@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { InstagramIcon, FacebookIcon } from "@/components/ui/SocialIcons";
@@ -9,9 +10,13 @@ export function Footer() {
     <footer className="border-pisao-gold/15 bg-pisao-carbon-soft border-t">
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <p className="font-display text-pisao-gold text-2xl">
-            {siteConfig.shortName}
-          </p>
+          <Image
+            src="/brand/pisao-logo.png"
+            alt={siteConfig.name}
+            width={1115}
+            height={1014}
+            className="h-24 w-auto"
+          />
           <p className="text-pisao-cream-muted mt-3 text-sm">
             {siteConfig.description}
           </p>

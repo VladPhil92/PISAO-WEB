@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/Button";
@@ -39,7 +40,16 @@ export default function AdminLoginPage() {
         onSubmit={onSubmit}
         className="border-pisao-gold/15 bg-pisao-carbon-soft w-full max-w-sm rounded-xl border p-8"
       >
-        <p className="font-display text-pisao-gold text-2xl">PISÁO Admin</p>
+        <Image
+          src="/brand/pisao-mark.png"
+          alt=""
+          width={56}
+          height={56}
+          className="h-14 w-14"
+        />
+        <p className="font-display text-pisao-gold mt-3 text-2xl">
+          PISÁO Admin
+        </p>
         <p className="text-pisao-cream-muted mt-1 text-sm">
           Acceso exclusivo para el equipo administrativo.
         </p>

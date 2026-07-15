@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
@@ -20,7 +21,14 @@ export default async function AdminProtectedLayout({
   return (
     <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[240px_1fr]">
       <aside className="border-pisao-gold/10 bg-pisao-carbon-soft border-b lg:border-r lg:border-b-0">
-        <div className="flex items-center justify-between px-4 py-4">
+        <div className="flex items-center gap-2 px-4 py-4">
+          <Image
+            src="/brand/pisao-mark.png"
+            alt=""
+            width={28}
+            height={28}
+            className="h-7 w-7"
+          />
           <p className="font-display text-pisao-gold text-lg">PISÁO Admin</p>
         </div>
         <AdminSidebar rol={rol} />

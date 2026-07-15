@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -17,11 +18,18 @@ export function Header() {
   return (
     <header className="border-pisao-gold/15 bg-pisao-carbon/95 supports-backdrop-blur:bg-pisao-carbon/80 sticky top-0 z-40 border-b backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
-        <Link
-          href="/"
-          className="font-display text-pisao-gold text-xl tracking-wide"
-        >
-          {siteConfig.shortName}
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/brand/pisao-mark.png"
+            alt=""
+            width={32}
+            height={32}
+            className="h-8 w-8"
+            priority
+          />
+          <span className="font-display text-pisao-gold text-xl tracking-wide">
+            {siteConfig.shortName}
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex">

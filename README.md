@@ -147,11 +147,14 @@ valores en `.env.example` son placeholders.
 
 ## Diseño
 
-La paleta (`app/globals.css`, tokens `--color-pisao-*`) y tipografías
-(Playfair Display para títulos, Inter para cuerpo) son un punto de partida
-**provisional** — fondo oscuro carbón/azul noche con acentos dorado/tierra.
-Deben reemplazarse por los valores exactos y el logo SVG del manual de
-identidad de marca de PISÁO en cuanto estén disponibles.
+La paleta (`app/globals.css`, tokens `--color-pisao-*`) y el logo
+(`public/brand/`) corresponden al manual de identidad oficial de PISÁO —
+Negro Carbón, Madera Tostada, Dorado Atardecer, Verde Plátano y Arena
+Caribe, con Playfair Display para títulos y Montserrat para cuerpo. El
+detalle completo (hex exactos, uso de cada asset) está documentado en
+[`docs/brand/BRAND.md`](./docs/brand/BRAND.md). El logo entregado es un
+PNG rasterizado, no un vector; si el cliente provee un `.svg`/`.ai`,
+reemplazar los archivos en `public/brand/` manteniendo los mismos nombres.
 
 ## Pendiente de integración real (fuera de alcance de este scaffold)
 
