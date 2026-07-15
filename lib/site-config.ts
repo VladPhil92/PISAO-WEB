@@ -18,14 +18,23 @@ export const siteConfig = {
   },
   contact: {
     // formato E.164 sin '+'
-    whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "573000000000",
-    email: "contacto@pisaogastrobar.com",
-    phone: "+57 300 000 0000",
+    whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "573246015877",
+    email: "cerveceriacartagena@gmail.com",
+    phone: "+57 324 601 5877",
   },
   social: {
     instagram: "https://instagram.com/pisaogastrobar",
     facebook: "https://facebook.com/pisaogastrobar",
     tiktok: "https://tiktok.com/@pisaogastrobar",
+  },
+  /** Alianza comercial a destacar en el sitio (footer / nosotros). */
+  partner: {
+    name: "Cervecería Cartagena S.A.S.",
+    label: "En alianza con",
+  },
+  delivery: {
+    descuentoDomicilios: "10%",
+    rappi: true,
   },
   hours: [
     { dia: "Martes a jueves", horario: "5:00 p. m. – 12:00 a. m." },

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, MessageCircle, Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { InstagramIcon, FacebookIcon } from "@/components/ui/SocialIcons";
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig, whatsappLink } from "@/lib/site-config";
 
 export function Footer() {
   return (
@@ -79,10 +79,12 @@ export function Footer() {
           <p className="text-pisao-cream text-sm font-semibold">Contacto</p>
           <div className="text-pisao-cream-muted mt-3 space-y-2 text-sm">
             <a
-              href={`tel:${siteConfig.contact.phone}`}
+              href={whatsappLink("Hola PISÁO, quiero hacer un pedido.")}
+              target="_blank"
+              rel="noreferrer"
               className="hover:text-pisao-gold flex items-center gap-2"
             >
-              <Phone className="text-pisao-gold h-4 w-4" />{" "}
+              <MessageCircle className="text-pisao-gold h-4 w-4" />{" "}
               {siteConfig.contact.phone}
             </a>
             <a
@@ -101,9 +103,17 @@ export function Footer() {
         </div>
       </Container>
 
-      <div className="border-pisao-gold/10 text-pisao-cream-muted/70 border-t py-4 text-center text-xs">
-        © {new Date().getFullYear()} {siteConfig.name}. Todos los derechos
-        reservados.
+      <div className="border-pisao-gold/10 text-pisao-cream-muted/70 space-y-1 border-t py-4 text-center text-xs">
+        <p>
+          © {new Date().getFullYear()} {siteConfig.name}. Todos los derechos
+          reservados.
+        </p>
+        <p>
+          {siteConfig.partner.label}{" "}
+          <span className="text-pisao-cream-muted">
+            {siteConfig.partner.name}
+          </span>
+        </p>
       </div>
     </footer>
   );

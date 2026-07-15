@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig, whatsappLink } from "@/lib/site-config";
 
 export default function HomePage() {
   return (
@@ -67,6 +67,63 @@ export default function HomePage() {
               <p className="text-pisao-cream-muted mt-2 text-sm">{f.body}</p>
             </div>
           ))}
+        </Container>
+      </section>
+
+      <section className="bg-pisao-carbon-soft py-16">
+        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="relative aspect-square overflow-hidden rounded-xl">
+            <Image
+              src="/promo/domicilios-hamburguesas.jpg"
+              alt="Promoción de domicilios PISÁO: hamburguesas con 10% de descuento"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+
+          <div>
+            <p className="text-pisao-gold text-xs font-semibold tracking-[0.2em] uppercase">
+              Pide a domicilio
+            </p>
+            <h2 className="font-display text-pisao-cream mt-2 text-3xl sm:text-4xl">
+              Hamburguesas que saben a Caribe.
+            </h2>
+            <p className="text-pisao-cream-muted mt-4">
+              Hechas con ingredientes reales, para momentos que sí valen.
+            </p>
+
+            <div className="border-pisao-gold/30 mt-6 inline-flex items-center gap-3 rounded-lg border px-4 py-3">
+              <span className="font-display text-pisao-gold text-3xl">
+                {siteConfig.delivery.descuentoDomicilios}
+              </span>
+              <span className="text-pisao-cream-muted text-sm">
+                de descuento en domicilios
+              </span>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button
+                href={whatsappLink(
+                  "Hola PISÁO, quiero hacer un pedido a domicilio.",
+                )}
+                variant="primary"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Pedir por WhatsApp
+              </Button>
+              <Button href="/menu" variant="outline">
+                Ver Menú
+              </Button>
+            </div>
+
+            {siteConfig.delivery.rappi && (
+              <p className="text-pisao-cream-muted mt-4 text-xs">
+                También puedes pedirnos por Rappi.
+              </p>
+            )}
+          </div>
         </Container>
       </section>
     </>
