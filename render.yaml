@@ -1,0 +1,108 @@
+# Blueprint de Render — https://render.com/docs/blueprint-spec
+#
+# Crea de una vez el servicio web (Next.js) y la base de datos Postgres
+# gestionada. En el dashboard de Render: New > Blueprint > seleccionar
+# este repo. Las variables marcadas con `sync: false` no tienen valor
+# acá (nunca credenciales reales en el repo) — Render las va a pedir
+# una por una al crear el Blueprint, o se cargan después en
+# Environment del servicio.
+
+databases:
+  - name: pisao-db
+    databaseName: pisao
+    plan: free
+    region: oregon
+    postgresMajorVersion: "16"
+
+services:
+  - type: web
+    name: pisao-web
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /
+    autoDeployTrigger: commit
+    envVars:
+      # Base de datos — conectada automáticamente a pisao-db de arriba.
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pisao-db
+          property: connectionString
+
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+
+      # NextAuth / Auth.js (panel admin)
+      - key: AUTH_SECRET
+        generateValue: true
+      - key: NEXTAUTH_URL
+        sync: false # ej. https://pisao-web.onrender.com o el dominio custom
+      - key: SEED_ADMIN_PASSWORD
+        generateValue: true
+
+      # Pasarela de tarjeta (proveedor intercambiable)
+      - key: PAYMENT_GATEWAY_PROVIDER
+        value: WOMPI
+      - key: WOMPI_PUBLIC_KEY
+        sync: false
+      - key: WOMPI_PRIVATE_KEY
+        sync: false
+      - key: WOMPI_EVENTS_SECRET
+        sync: false
+      - key: PAYU_API_KEY
+        sync: false
+      - key: PAYU_MERCHANT_ID
+        sync: false
+      - key: PAYU_ACCOUNT_ID
+        sync: false
+      - key: EPAYCO_PUBLIC_KEY
+        sync: false
+      - key: EPAYCO_PRIVATE_KEY
+        sync: false
+
+      # Gateway cripto
+      - key: CRYPTO_GATEWAY_PROVIDER
+        sync: false
+      - key: CRYPTO_GATEWAY_API_KEY
+        sync: false
+      - key: CRYPTO_GATEWAY_WEBHOOK_SECRET
+        sync: false
+      - key: CRYPTO_DISCOUNT_PERCENTAGE
+        value: "5"
+
+      # Pago QR / transferencia bancaria
+      - key: BANK_TRANSFER_BANK_NAME
+        sync: false
+      - key: BANK_TRANSFER_ACCOUNT_HOLDER
+        sync: false
+      - key: BANK_TRANSFER_ACCOUNT_TYPE
+        sync: false
+      - key: BANK_TRANSFER_ACCOUNT_NUMBER
+        sync: false
+      - key: BANK_TRANSFER_NIT
+        sync: false
+      - key: BANK_TRANSFER_QR_IMAGE_URL
+        value: /pagos/qr-placeholder.svg
+
+      # Subida de comprobantes (bucket externo — el disco de Render
+      # también es efímero en el plan free/starter sin disco persistente)
+      - key: UPLOADS_BASE_URL
+        sync: false
+      - key: UPLOADS_ACCESS_KEY
+        sync: false
+      - key: UPLOADS_SECRET_KEY
+        sync: false
+
+      # Integraciones públicas (NEXT_PUBLIC_* quedan visibles en el bundle del cliente)
+      - key: NEXT_PUBLIC_WHATSAPP_NUMBER
+        value: "573246015877"
+      - key: NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL
+        sync: false
+      - key: NEXT_PUBLIC_INSTAGRAM_TOKEN
+        sync: false
+      - key: NEXT_PUBLIC_GA_MEASUREMENT_ID
+        sync: false

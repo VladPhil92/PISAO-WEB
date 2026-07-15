@@ -11,7 +11,7 @@ y panel administrativo.
 - **Base de datos:** PostgreSQL vía Prisma ORM
 - **Autenticación admin:** NextAuth (Auth.js v5), roles `ADMIN` / `CAJERO` / `COCINA`
 - **Estado del carrito:** Zustand con persistencia local
-- **Hosting objetivo:** Vercel (frontend) + Postgres gestionado (Supabase / Neon / Railway)
+- **Hosting objetivo:** Render (web service + Postgres gestionado, ver `render.yaml`)
 
 ## Estructura del proyecto
 
@@ -127,7 +127,7 @@ Resumen por categoría:
 | Pasarela de tarjeta  | `PAYMENT_GATEWAY_PROVIDER`, `WOMPI_*`, `PAYU_*`, `EPAYCO_*`                                                                        |
 | Gateway cripto       | `CRYPTO_GATEWAY_PROVIDER`, `CRYPTO_GATEWAY_API_KEY`, `CRYPTO_GATEWAY_WEBHOOK_SECRET`, `CRYPTO_DISCOUNT_PERCENTAGE`                 |
 | QR / transferencia   | `BANK_TRANSFER_*`                                                                                                                  |
-| Comprobantes de pago | `UPLOADS_*` (bucket externo; el filesystem de Vercel es efímero)                                                                   |
+| Comprobantes de pago | `UPLOADS_*` (bucket externo; el disco de Render es efímero en el plan free/starter)                                                |
 | Integraciones        | `NEXT_PUBLIC_WHATSAPP_NUMBER`, `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL`, `NEXT_PUBLIC_INSTAGRAM_TOKEN`, `NEXT_PUBLIC_GA_MEASUREMENT_ID` |
 
 No se usan claves ni credenciales reales en este repositorio: todos los
@@ -144,6 +144,63 @@ valores en `.env.example` son placeholders.
 | `npm run db:migrate` | Aplica migraciones de Prisma en desarrollo |
 | `npm run db:seed`    | Crea usuario admin + datos de ejemplo      |
 | `npm run db:studio`  | Abre Prisma Studio                         |
+
+## Despliegue en Render
+
+El repo incluye [`render.yaml`](./render.yaml) (Blueprint): define el web
+service de Next.js y la base de datos Postgres gestionada en un solo
+archivo, con todas las variables de `.env.example` ya declaradas (las
+que son secretas quedan con `sync: false` — Render las pide una por una
+al crear el Blueprint, nunca van en el repo).
+
+### 1. Crear el Blueprint
+
+En el dashboard de Render → **New > Blueprint** → conectar este repo y
+la rama a desplegar. Render lee `render.yaml`, crea el servicio web
+(`pisao-web`) y la base de datos (`pisao-db`), y conecta `DATABASE_URL`
+automáticamente entre ambos.
+
+Vas a tener que completar en el dashboard, durante la creación o
+después en **Environment**, las variables marcadas `sync: false`:
+credenciales de la pasarela de tarjeta elegida, del gateway cripto, los
+datos bancarios reales, el bucket de comprobantes, y `NEXTAUTH_URL`
+(al principio va a ser la URL que te da Render, ej.
+`https://pisao-web.onrender.com`; cuando conectes el dominio propio, se
+actualiza a `https://www.pisaogastrobar.com`).
+
+`AUTH_SECRET` y `SEED_ADMIN_PASSWORD` se generan solos
+(`generateValue: true`) — no hace falta tocarlos, pero sí ir a
+**Environment** a copiar el `SEED_ADMIN_PASSWORD` generado antes de
+correr el seed.
+
+### 2. Migraciones y seed (primera vez)
+
+Con el servicio ya desplegado, desde la pestaña **Shell** del web
+service en Render:
+
+```bash
+npx prisma migrate deploy
+npm run db:seed
+```
+
+### 3. Dominio propio (pisaogastrobar.com en Porkbun)
+
+En el servicio → **Settings > Custom Domains** → agregar
+`www.pisaogastrobar.com` (y `pisaogastrobar.com` con redirect a
+`www`). Render muestra el registro exacto a cargar — normalmente un
+`CNAME` apuntando a `pisao-web.onrender.com`. En el DNS de Porkbun
+(la misma pantalla de siempre: **ALIAS** para el dominio raíz, **CNAME**
+para `www`) reemplazá el valor actual por el que te muestre Render.
+El certificado SSL lo emite Render solo una vez verificado el DNS.
+
+### 4. Notas del plan free
+
+El plan free de Render "duerme" el servicio tras ~15 min sin tráfico
+(el próximo request tarda unos segundos en despertar) y el disco es
+efímero en cada deploy — por eso `lib/uploads/evidencia.ts` necesita
+un bucket externo real antes de producción, no el filesystem del
+servicio. Para un sitio en producción sin esa demora, pasar el web
+service a un plan pago (`plan: starter` o superior en `render.yaml`).
 
 ## Diseño
 
