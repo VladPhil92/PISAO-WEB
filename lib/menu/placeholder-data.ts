@@ -192,9 +192,10 @@ export const productosPlaceholder: (MenuCardProduct & {
     id: "prod-pisao-bowl",
     nombre: "PISÁO Bowl",
     slug: "pisao-bowl",
-    descripcion: "",
+    descripcion:
+      "Pollo a la parrilla, guacamole, pico de gallo, maíz tierno y base crocante de patacón.",
     precio: 36000,
-    imagenUrl: null,
+    imagenUrl: "/gallery/pisao-bowl.jpg",
     disponible: true,
     categoriaSlug: "bowls",
   },

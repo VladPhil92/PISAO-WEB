@@ -111,6 +111,13 @@ export const galleryPhotos: GalleryPhoto[] = [
     height: 1254,
   },
   {
+    slug: "pisao-bowl",
+    alt: "PISÁO Bowl con pollo a la parrilla, guacamole, pico de gallo y maíz",
+    categoria: "comida",
+    width: 1023,
+    height: 1537,
+  },
+  {
     slug: "terraza-cervezas",
     alt: "Cervezas artesanales en la terraza panorámica al atardecer",
     categoria: "terraza",
