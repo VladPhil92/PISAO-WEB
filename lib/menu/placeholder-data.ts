@@ -47,7 +47,7 @@ export const productosPlaceholder: (MenuCardProduct & {
     slug: "patacon-con-queso-y-hogao",
     descripcion: "3 patacones con hogao y queso costeño rayado.",
     precio: 20000,
-    imagenUrl: "/gallery/patacones-trio.jpg",
+    imagenUrl: "/gallery/patacon-queso-hogao.jpg",
     disponible: true,
     categoriaSlug: "entradas",
   },

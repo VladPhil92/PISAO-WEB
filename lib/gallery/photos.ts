@@ -55,6 +55,13 @@ export const galleryPhotos: GalleryPhoto[] = [
     height: 1448,
   },
   {
+    slug: "patacon-queso-hogao",
+    alt: "Patacones con hogao y queso costeño rayado sobre hoja de plátano",
+    categoria: "comida",
+    width: 1086,
+    height: 1448,
+  },
+  {
     slug: "patacones-cerdo",
     alt: "Patacones con cerdo, queso y cebolla",
     categoria: "comida",
